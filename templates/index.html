@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME PAGE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Optional: Additional custom styles for both pages */
+        body {
+            background-color: #f8f9fa; /* Light background for the body */
+            padding: 20px;
+        }
+        .content-container {
+            background: #d1e7dd; /* Slightly different background for card style */
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .action-class {
+            color: black; /* Default color for icons */
+            transition: color 0.3s ease; /* Smooth transition for hover */
+        }
+        .action-class:hover {
+            color: #426e5b; /* Change color to white on hover */
+        }
+    </style>
+</head>
+<body class="bg-light text-dark m-3">
+    <div class="content-container text-center mb-4">
+        <h1>Todo App</h1>
+        <button class="btn btn-success" onclick="create_task()">CREATE A TASK</button>
+    </div>
+
+    {% if tasks %}
+    <div class="content-container">
+        <table class="table table-success table-hover mt-4">
+            <thead class="bg-secondary">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">TASKS</th>
+                    <th scope="col">STATUS</th>
+                    <th scope="col">REMARKS</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.task_name }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.remarks }}</td>
+                    <td>
+                        <a href="{{ url_for('update_task', id=task.id) }}">
+                            <i class="bi bi-pencil action-class"></i>
+                        </a>
+                        <a href="{{ url_for('delete_task', id=task.id) }}">
+                            <i class="bi bi-trash action-class"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <script>
+        function create_task() {
+            window.location.href = "http://127.0.0.1:5000/create";
+        }
+    </script>
+</body>
+</html>
